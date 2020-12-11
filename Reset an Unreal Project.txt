@@ -1,0 +1,8 @@
+Steps to Reset an Unreal Project.
+
+1. "Check-out" or "Reset" to a working commit.
+2. Delete the derived folders: .vs, Binaries, Build, Intermediate, Saved folders
+    Delete the derived files: .sln, .VC.db
+    Leave the Config, Content, and Source folders, and the .uproject file.
+3. Reopen Unreal from the launcher or the .uproject file (this recreates generated.h files).
+4. Generate your IDE project files: right click on the .uproject file then open the .sln file.

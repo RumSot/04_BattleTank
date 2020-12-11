@@ -1,0 +1,2 @@
+BT04 Creating & Deleting Landscapes
+Look into using Terragen or World Machine for procedurally generating terrains.

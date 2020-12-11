@@ -6,3 +6,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT01 Intro, Notes & Assets
 * BT02 Game Design Document (GDD)
 * BT03 Setting Up a GitHub "Repo"
+* BT04 Creating & Deleting Landscapes

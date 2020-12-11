@@ -1,0 +1,6 @@
+How to Delete a C++ Class in Unreal.
+
+1. Delete the source files, and remove them from the visual studio project.
+2. Rebuild the Visual Studio project files.
+3. Delete Unreal's Binaries folder.
+4. Reopen the editor and let it rebuild the caches.
