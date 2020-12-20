@@ -14,3 +14,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT09 Flat Shading Low Poly Landscapes
 * BT10 More Landscaping Tools
 * BT11 Tank Control System
+* BT12 Actors from Multiple Meshes
