@@ -25,3 +25,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT20 Creating Unreal Engine UI with UMG and C++
 * BT21 Trial Packaging Your Game
 * BT22 Delegating to Components
+* BT23 Using virtual and override
