@@ -26,3 +26,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT21 Trial Packaging Your Game
 * BT22 Delegating to Components
 * BT23 Using virtual and override
+* BT24 Overloading and Polymorphism
