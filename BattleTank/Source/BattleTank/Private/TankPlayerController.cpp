@@ -3,9 +3,6 @@
 
 #include "TankPlayerController.h"
 
-auto ATankPlayerController::GetControlledTank(void) -> ATank* const {
-	return Cast<ATank>(GetPawn());
-}
 
 void ATankPlayerController::BeginPlay(void)
 {
@@ -24,4 +21,15 @@ void ATankPlayerController::BeginPlay(void)
 	// Whenever PlayersTank is used place a guard against nullptr at the top of the function
 	// if (!PlayerTank) return;
 
+}
+
+auto ATankPlayerController::GetControlledTank(void) -> ATank* const 
+{
+	auto PlayerPawn = GetPawn();
+
+	if (!PlayerPawn) {
+		return nullptr;
+	}
+
+	return Cast<ATank>(PlayerPawn);		// In the event of a nullptr or an invalid pointer this cast would fail. So we could remove the nullptr guard above (however I choose to be specific for clarity).
 }
