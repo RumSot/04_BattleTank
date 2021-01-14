@@ -23,7 +23,13 @@ void ATankPlayerController::BeginPlay(void)
 
 }
 
-auto ATankPlayerController::GetControlledTank(void) -> ATank* const 
+
+void ATankPlayerController::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+}
+
+auto ATankPlayerController::GetControlledTank(void) -> ATank* const
 {
 	auto PlayerPawn = GetPawn();
 
@@ -32,4 +38,16 @@ auto ATankPlayerController::GetControlledTank(void) -> ATank* const
 	}
 
 	return Cast<ATank>(PlayerPawn);		// In the event of a nullptr or an invalid pointer this cast would fail. So we could remove the nullptr guard above (however I choose to be specific for clarity).
+}
+
+auto ATankPlayerController::AimTowardsCrosshair(void) -> void
+{
+	// Pointer guard
+	if (!GetControlledTank()) {
+		return;
+	}
+
+	// Linetrace through the crosshair
+	// If it hits the landscape
+		// Tell controlled tank to aim at this point
 }
