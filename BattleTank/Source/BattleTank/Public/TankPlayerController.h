@@ -23,4 +23,7 @@ private:
 
 	// Starts moving the tank's barrel towards the point where the croshair intersects with the world.
 	auto AimTowardsCrosshair(void)->void;
+
+	// Returns true if it hits anything
+	auto GetSightRayHitLocation(OUT FVector &HitLocation)->bool const;
 };

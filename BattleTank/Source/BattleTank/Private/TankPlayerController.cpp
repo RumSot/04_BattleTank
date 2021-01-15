@@ -27,6 +27,8 @@ void ATankPlayerController::BeginPlay(void)
 void ATankPlayerController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+
+	AimTowardsCrosshair();
 }
 
 auto ATankPlayerController::GetControlledTank(void) -> ATank* const
@@ -40,6 +42,8 @@ auto ATankPlayerController::GetControlledTank(void) -> ATank* const
 	return Cast<ATank>(PlayerPawn);		// In the event of a nullptr or an invalid pointer this cast would fail. So we could remove the nullptr guard above (however I choose to be specific for clarity).
 }
 
+#define OUT
+
 auto ATankPlayerController::AimTowardsCrosshair(void) -> void
 {
 	// Pointer guard
@@ -47,7 +51,22 @@ auto ATankPlayerController::AimTowardsCrosshair(void) -> void
 		return;
 	}
 
-	// Linetrace through the crosshair
-	// If it hits the landscape
-		// Tell controlled tank to aim at this point
+	FVector HitLocation;
+
+	if (GetSightRayHitLocation(OUT HitLocation)) 	// Has side-effect, is going to line trace
+	{
+		UE_LOG(LogTemp, Warning, TEXT("HitLocation: %s"), *HitLocation.ToString());
+		// TODO: Tell controlled tank to aim at this point
+	}
 }
+
+
+// Get world location of a linetrace through the crosshair, true if hits landscape or tank
+auto ATankPlayerController::GetSightRayHitLocation(OUT FVector &HitLocation) -> bool const
+{
+	HitLocation = FVector(1.0);
+
+	return true;
+}
+
+

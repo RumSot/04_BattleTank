@@ -31,3 +31,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT26 Creating an AI Controller Class
 * BT27 Get the Player Controller with C++
 * BT28 Add Tick() to PlayerController
+* BT29 Creating an Out Parameter Method
