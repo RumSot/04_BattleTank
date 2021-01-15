@@ -28,6 +28,9 @@ private:
 	// Returns true if it hits anything
 	auto GetSightRayHitLocation(OUT FVector &HitLocation)->bool const;
 
+	// 
+	auto GetLookDirection(FVector2D ScreenLocation, OUT FVector &LookDirection) -> bool const;
+
 	UPROPERTY(EditAnywhere)
 	float CrossHairXLocation = 0.5f;		// distance from the top left
 

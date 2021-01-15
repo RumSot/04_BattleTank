@@ -33,3 +33,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT28 Add Tick() to PlayerController
 * BT29 Creating an Out Parameter Method
 * BT30 Finding Screen Pixel Coordinates
+* BT31 Using DeprojectScreenToWorld
