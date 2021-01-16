@@ -2,7 +2,7 @@
 
 
 #include "TankPlayerController.h"
-
+#include "Engine/World.h"
 
 void ATankPlayerController::BeginPlay(void)
 {
@@ -70,14 +70,15 @@ auto ATankPlayerController::GetSightRayHitLocation(OUT FVector &HitLocation) -> 
 	GetViewportSize(OUT ViewportSizeX, OUT ViewportSizeY);
 	auto ScreenLocation = FVector2D(ViewportSizeX * CrossHairXLocation, ViewportSizeY * CrossHairYLocation);
 
-	// De-project the screen position of the crosshair to a world position
+	// De-project the screen position of the crosshair to a world direction
 	FVector LookDirection;
 	if (GetLookDirection(ScreenLocation, LookDirection)) {
-		UE_LOG(LogTemp, Warning, TEXT("LookDirection: %s"), *LookDirection.ToString());
+		// Linetrace along the look direction, and see what we hit (up to a maximum range)
+		GetLookVectorHitlocation(LookDirection, OUT HitLocation);
 	}
 
 
-	// TODO: Linetrace along the look direction, and see what we hit (up to a maximum range)
+
 	
 	return true;
 }
@@ -86,6 +87,23 @@ auto ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, OUT FVect
 {
 	FVector CameraWorldLocation;	// To be discarded
 	return DeprojectScreenPositionToWorld(ScreenLocation.X, ScreenLocation.Y, OUT CameraWorldLocation, OUT LookDirection);
+}
+
+auto ATankPlayerController::GetLookVectorHitlocation(FVector LookDirection, OUT FVector & HitLocation) -> bool const
+{
+	FHitResult OUT HitResult;
+	auto Start = PlayerCameraManager->GetCameraLocation();
+	auto End = Start + (LookDirection * LineTraceRange);
+
+	if (GetWorld()->LineTraceSingleByChannel(OUT HitResult, Start, End, ECollisionChannel::ECC_Visibility)) {
+		HitLocation = HitResult.ImpactPoint;
+//		UE_LOG(LogTemp, Warning, TEXT("HitImpactPoint: %s"), *HitResult.Location.ToString());
+//		UE_LOG(LogTemp, Warning, TEXT("HitImpactPoint: %s"), *HitResult.ImpactPoint.ToString());
+		return true;
+	}
+
+//	HitLocation = FVector(0.0);
+	return false;
 }
 
 

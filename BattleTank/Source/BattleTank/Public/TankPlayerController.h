@@ -28,8 +28,10 @@ private:
 	// Returns true if it hits anything
 	auto GetSightRayHitLocation(OUT FVector &HitLocation)->bool const;
 
-	// 
+	// De-project the screen position of the crosshair to a world direction
 	auto GetLookDirection(FVector2D ScreenLocation, OUT FVector &LookDirection) -> bool const;
+
+	auto GetLookVectorHitlocation(FVector LookDirection, OUT FVector &HitLocation) -> bool const;
 
 	UPROPERTY(EditAnywhere)
 	float CrossHairXLocation = 0.5f;		// distance from the top left
@@ -37,4 +39,6 @@ private:
 	UPROPERTY(EditAnywhere)
 	float CrossHairYLocation = 0.33333f;
 
+	UPROPERTY(EditAnywhere)
+	float LineTraceRange = 10.0f * 100 * 1000;	// 10km = 10cm * 100 to give meters * 1000 to give km
 };
