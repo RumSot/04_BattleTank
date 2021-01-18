@@ -37,3 +37,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT32 Using LineTraceSingleByChannel()
 * BT33 Unify Player & AI Aiming
 * BT34 Create Default Sub Objects in C++
+* BT35 BlueprintCallable()
