@@ -17,8 +17,12 @@ class BATTLETANK_API ATankAIController : public AAIController
 
 public:
 	virtual void BeginPlay(void) override;
+	virtual void Tick(float DeltaSeconds) override;
 
 private:
 	auto GetControlledTank(void)->ATank* const;
 	auto GetPlayerTank(void)->ATank* const;
+
+	// Starts moving the AI tank's barrel towards the player's tank.
+	auto AimAtPlayersTank(void)->void const;
 };
