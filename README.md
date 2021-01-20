@@ -43,3 +43,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT38 Using FRotators in Unreal
 * BT39 The C++ Compilation Process
 * BT40 Using Forward Declarations
+* BT41 BlueprintSpawnableComponent()
