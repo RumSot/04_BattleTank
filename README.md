@@ -39,3 +39,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT34 Create Default Sub Objects in C++
 * BT35 BlueprintCallable()
 * BT36 SuggestProjectileVelocity()
+* BT37 Predict Projectile Landing Point
