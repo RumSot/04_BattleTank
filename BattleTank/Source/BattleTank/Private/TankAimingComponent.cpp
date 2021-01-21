@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"				// If we are going to call a method then a forward declaration isn't enough
+
 #include "Kismet/GameplayStatics.h"
 
 
@@ -39,6 +40,7 @@ auto UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) -> void
 	FVector OutLaunchVelocity(0);	// Always initialise
 	auto StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 
+	// Note: You can only use the defaults if you use all following defaults.
 	auto bHaveAimingSolution = UGameplayStatics::SuggestProjectileVelocity
 	(
 		this,
@@ -51,6 +53,8 @@ auto UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) -> void
 		0.0f,											// OverrideGravityZ defaults to 0.0f (i.e. no effect)
 		ESuggestProjVelocityTraceOption::DoNotTrace		// ESuggestProjVelocityTraceOption defaults to ESuggestProjVelocityTraceOption::TraceFullPath
 	);
+
+
 
 	if (bHaveAimingSolution) {
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();

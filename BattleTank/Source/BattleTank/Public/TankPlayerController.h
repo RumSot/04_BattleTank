@@ -2,10 +2,13 @@
 
 #pragma once
 
-#include "Tank.h"
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"		// Always the last include
+
+
+// Forward declarations
+class ATank;
 
 /**
  * 

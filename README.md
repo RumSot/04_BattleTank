@@ -45,3 +45,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT40 Using Forward Declarations
 * BT41 BlueprintSpawnableComponent()
 * BT42 Review Our Execution Flow
+* BT43 How to Report Bugs
