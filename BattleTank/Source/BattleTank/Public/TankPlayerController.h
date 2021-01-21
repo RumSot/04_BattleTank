@@ -40,5 +40,5 @@ private:
 	float CrossHairYLocation = 0.33333f;
 
 	UPROPERTY(EditAnywhere)
-	float LineTraceRange = 10.0f * 100 * 1000;	// 10km = 10cm * 100 to give meters * 1000 to give km
+	float LineTraceRange = 5.0f * 100 * 1000;	// 5km = 5cm * 100 to give meters * 1000 to give km
 };
