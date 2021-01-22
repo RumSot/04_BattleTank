@@ -36,8 +36,8 @@ private:
 	// Tank does not need to tick, hence no tick method. Turning this off to improves performance.
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(UInputComponent * PlayerInputComponent) override;
 
 	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 100000;		// TODO: Find a sensible starting value in m/s
+	float LaunchSpeed = 5000;		// TODO: Find a sensible starting value in m/s
 };

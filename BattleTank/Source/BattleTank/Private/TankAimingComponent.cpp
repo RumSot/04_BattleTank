@@ -11,24 +11,27 @@ UTankAimingComponent::UTankAimingComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
+
+
+//	bWantsBeginPlay = true;
 	PrimaryComponentTick.bCanEverTick = true;	// TODO: Should UTankAimingComponent tick?
 
 	// ...
 }
 
 
-auto UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet) -> void
+void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
 	Barrel = BarrelToSet;
 }
 
-auto UTankAimingComponent::SetTurretReference(UStaticMeshComponent * TurretToSet) -> void
-{
-	Turret = TurretToSet;
-}
+//void UTankAimingComponent::SetTurretReference(UStaticMeshComponent * TurretToSet)
+//{
+//	Turret = TurretToSet;
+//}
 
 
-auto UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) -> void
+void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
 	//auto OurTankName = GetOwner()->GetName();
 	//auto BarrelLocation = Barrel->GetComponentLocation();
@@ -38,10 +41,10 @@ auto UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) -> void
 	}
 
 	FVector OutLaunchVelocity(0);	// Always initialise
-	auto StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
+	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile")); 
 
 	// Note: You can only use the defaults if you use all following defaults.
-	auto bHaveAimingSolution = UGameplayStatics::SuggestProjectileVelocity
+	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
 	(
 		this,
 		OUT OutLaunchVelocity,
@@ -54,25 +57,22 @@ auto UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed) -> void
 		ESuggestProjVelocityTraceOption::DoNotTrace		// ESuggestProjVelocityTraceOption defaults to ESuggestProjVelocityTraceOption::TraceFullPath
 	);
 
-
-
-	if (bHaveAimingSolution) {
+	auto TankName = GetOwner()->GetName();
+	auto Time = GetWorld()->GetTimeSeconds();
+	if (bHaveAimSolution) 
+	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 
-		auto TankName = GetOwner()->GetName();
-		auto Time = GetWorld()->GetTimeSeconds();
 		UE_LOG(LogTemp, Warning, TEXT("%f: %s has an aiming soluition"), Time, *TankName);
 	}
-	else {
-		auto TankName = GetOwner()->GetName();
-		auto Time = GetWorld()->GetTimeSeconds();
+	else
+	{
 		UE_LOG(LogTemp, Error, TEXT("%f: %s does not have an aiming soluition"), Time, *TankName);
 	}
-	// if no solution found then do nothing.
 }
 
-auto UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) -> void
+void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
 	// calculate the degrees that the turret needs to be rotated from its current position to the target direction
 	// calculate the degrees that the barrel needs to be raised or lowered
@@ -82,8 +82,7 @@ auto UTankAimingComponent::MoveBarrelTowards(FVector AimDirection) -> void
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
-	UE_LOG(LogTemp, Warning, TEXT("AimAsRotator: %s"), *AimAsRotator.ToString());
 
-	Barrel->Elevate(5);		// TODO: remove magic number
+	Barrel->Elevate(DeltaRotator.Pitch);		// TODO: remove magic number
 }
 

@@ -18,23 +18,21 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
-public:
+private:
 	virtual void BeginPlay(void) override;
 	virtual void Tick(float DeltaSeconds) override;
 
-private:
-	auto GetControlledTank(void)->ATank* const;
+	ATank* GetControlledTank(void) const;
 
 	// Starts moving the tank's barrel towards the point where the croshair intersects with the world.
-	auto AimTowardsCrosshair(void)->void;
+	void AimTowardsCrosshair(void);
 
 	// Returns true if it hits anything
-	auto GetSightRayHitLocation(OUT FVector &HitLocation)->bool const;
+	bool GetSightRayHitLocation(OUT FVector &HitLocation) const;
 
 	// De-project the screen position of the crosshair to a world direction
-	auto GetLookDirection(FVector2D ScreenLocation, OUT FVector &LookDirection) -> bool const;
-
-	auto GetLookVectorHitlocation(FVector LookDirection, OUT FVector &HitLocation) -> bool const;
+	bool GetLookDirection(FVector2D ScreenLocation, OUT FVector &LookDirection) const;
+	bool GetLookVectorHitlocation(FVector LookDirection, OUT FVector &HitLocation) const;
 
 	UPROPERTY(EditAnywhere)
 	float CrossHairXLocation = 0.5f;		// distance from the top left
@@ -43,5 +41,5 @@ private:
 	float CrossHairYLocation = 0.33333f;
 
 	UPROPERTY(EditAnywhere)
-	float LineTraceRange = 5.0f * 100 * 1000;	// 5km = 5cm * 100 to give meters * 1000 to give km
+	float LineTraceRange = 1000000;	// 10km
 };

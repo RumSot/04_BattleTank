@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Tank.h"
 #include "TankAIController.h"
+#include "Tank.h"
+
 
 void ATankAIController::BeginPlay(void)
 {
@@ -32,6 +33,7 @@ void ATankAIController::BeginPlay(void)
 
 }
 
+
 void ATankAIController::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
@@ -40,24 +42,21 @@ void ATankAIController::Tick(float DeltaSeconds)
 	if (GetPlayerTank()) {
 		// TODO: Move towards the player
 
-		AimAtPlayersTank();
+		// Aim towards the player
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
 
 		// TODO: Fire if ready
 	}
 }
 
-auto ATankAIController::GetControlledTank(void)->ATank* const
+
+ATank * ATankAIController::GetControlledTank(void) const
 {
-	auto AIPawn = GetPawn();
-
-	if (!AIPawn) {
-		return nullptr;
-	}
-
-	return Cast<ATank>(AIPawn);
+	return Cast<ATank>(GetPawn());
 }
 
-auto ATankAIController::GetPlayerTank(void) -> ATank * const
+
+ATank * ATankAIController::GetPlayerTank(void) const
 {
 	auto PlayerPawn = GetWorld()->GetFirstPlayerController()->GetPawn();
 
@@ -68,6 +67,7 @@ auto ATankAIController::GetPlayerTank(void) -> ATank * const
 	return Cast<ATank>(PlayerPawn);
 }
 
+/*
 auto ATankAIController::AimAtPlayersTank(void) -> void const
 {
 	// Pointer guard
@@ -76,4 +76,4 @@ auto ATankAIController::AimAtPlayersTank(void) -> void const
 	}
 
 	GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
-}
+}*/

@@ -19,14 +19,14 @@ public:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	auto SetBarrelReference(UTankBarrel* BarrelToSet) -> void;
-	auto SetTurretReference(UStaticMeshComponent* TurretToSet) -> void;
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
+	//auto SetTurretReference(UStaticMeshComponent* TurretToSet) -> void;
 
-	auto AimAt(FVector HitLocation, float LaunchSpeed) -> void;
+	void AimAt(FVector HitLocation, float LaunchSpeed);
 
 private:
-	auto MoveBarrelTowards(FVector AimDirection) -> void;
+	void MoveBarrelTowards(FVector AimDirection);
 
 	UTankBarrel* Barrel = nullptr;
-	UStaticMeshComponent* Turret = nullptr;
+	//UStaticMeshComponent* Turret = nullptr;
 };

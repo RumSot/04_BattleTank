@@ -15,13 +15,13 @@ class BATTLETANK_API UTankBarrel : public UStaticMeshComponent
 	GENERATED_BODY()
 
 public:
-	// -1 is max downward speed, and +1 is max upward speed
+	// The percentage of the maximum elevation speed, -1.00 is 100% downward and +1.00 is 100% upward
 	void Elevate(float RelativeSpeed);
 
 private:
 	// Maximum number of degrees the barrel can move each second
 	UPROPERTY(EditAnywhere, Category = Setup)
-	float MaxDegreesPerSecond = 1;		
+	float MaxDegreesPerSecond = 5;		
 
 	// Maximum Elevation in degrees
 	UPROPERTY(EditAnywhere, Category = Setup)
@@ -29,5 +29,5 @@ private:
 
 	// Minimum Elevation in degrees
 	UPROPERTY(EditAnywhere, Category = Setup)
-	float MinElevation = 0;
+	float MinElevation = 0;						// TODO: make minElevation -5 but only when turret rotation is between -5 and +5 degrees (i.e. facing forward)
 };
