@@ -66,18 +66,23 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 		ESuggestProjVelocityTraceOption::DoNotTrace		// ESuggestProjVelocityTraceOption defaults to ESuggestProjVelocityTraceOption::TraceFullPath
 	);
 
-	auto TankName = GetOwner()->GetName();
-	auto Time = GetWorld()->GetTimeSeconds();
+
 	if (bHaveAimSolution) 
 	{
 		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
 		MoveBarrelTowards(AimDirection);
 
-		UE_LOG(LogTemp, Warning, TEXT("%f: %s has an aiming soluition"), Time, *TankName);
+//		TODO: Remove?
+//		auto TankName = GetOwner()->GetName();
+//		auto Time = GetWorld()->GetTimeSeconds();
+//		UE_LOG(LogTemp, Warning, TEXT("%f: %s has an aiming soluition"), Time, *TankName);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("%f: %s does not have an aiming soluition"), Time, *TankName);
+//		TODO: Remove?
+//		auto TankName = GetOwner()->GetName();
+//		auto Time = GetWorld()->GetTimeSeconds();
+//		UE_LOG(LogTemp, Error, TEXT("%f: %s does not have an aiming soluition"), Time, *TankName);
 	}
 }
 
