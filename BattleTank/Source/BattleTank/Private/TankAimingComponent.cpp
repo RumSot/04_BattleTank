@@ -94,6 +94,5 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
 	Barrel->Elevate(DeltaRotator.Pitch);
-	Turret->Rotate(DeltaRotator.Yaw);
+	Turret->Rotate(FMath::ClampAngle(DeltaRotator.Yaw, -179, 180));	// Clamping the angle means the turret can go right around
 }
-
