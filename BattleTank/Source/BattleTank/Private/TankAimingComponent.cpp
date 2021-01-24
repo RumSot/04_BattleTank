@@ -2,6 +2,7 @@
 
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"				// If we are going to call a method then a forward declaration isn't enough
+#include "TankTurret.h"
 
 #include "Kismet/GameplayStatics.h"
 
@@ -14,7 +15,7 @@ UTankAimingComponent::UTankAimingComponent()
 
 
 //	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = true;	// TODO: Should UTankAimingComponent tick?
+	PrimaryComponentTick.bCanEverTick = false;
 
 	// ...
 }
@@ -22,13 +23,21 @@ UTankAimingComponent::UTankAimingComponent()
 
 void UTankAimingComponent::SetBarrelReference(UTankBarrel * BarrelToSet)
 {
+	if (!BarrelToSet) {
+		return;
+	}
+
 	Barrel = BarrelToSet;
 }
 
-//void UTankAimingComponent::SetTurretReference(UStaticMeshComponent * TurretToSet)
-//{
-//	Turret = TurretToSet;
-//}
+void UTankAimingComponent::SetTurretReference(UTankTurret * TurretToSet)
+{
+	if (!TurretToSet) {
+		return;
+	}
+
+	Turret = TurretToSet;
+}
 
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
@@ -74,15 +83,12 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	// calculate the degrees that the turret needs to be rotated from its current position to the target direction
-	// calculate the degrees that the barrel needs to be raised or lowered
-	// move the barrel towards the target at a set speed
-
-	// Work out how far the turret needs rotating and the barrel needs elevating
+	// Work out the difference between the current barrel rotation and the AimDirection
 	auto BarrelRotator = Barrel->GetForwardVector().Rotation();
 	auto AimAsRotator = AimDirection.Rotation();
 	auto DeltaRotator = AimAsRotator - BarrelRotator;
 
-	Barrel->Elevate(DeltaRotator.Pitch);		// TODO: remove magic number
+	Barrel->Elevate(DeltaRotator.Pitch);
+	Turret->Rotate(DeltaRotator.Yaw);
 }
 
