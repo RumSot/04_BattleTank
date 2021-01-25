@@ -51,3 +51,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT46 Setting Up Firing
 * BT47 Setting Up Projectiles
 * BT48 Enable Full Turret Rotation
+* BT49 Working Round Awkward Bugs
