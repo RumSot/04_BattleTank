@@ -23,10 +23,4 @@ private:
 
 	virtual void BeginPlay(void) override;
 	virtual void Tick(float DeltaSeconds) override;
-
-	ATank* GetControlledTank(void) const;
-	ATank* GetPlayerTank(void) const;
-
-	// Starts moving the AI tank's barrel towards the player's tank.
-	//	auto AimAtPlayersTank(void)->void const;
 };
