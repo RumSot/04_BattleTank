@@ -56,3 +56,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT51 Projectile Movement Components
 * BT52 Making AI Tanks Fire
 * BT53 EditAnywhere vs EditDefaultsOnly
+* BT54 Adding a Quit Button
