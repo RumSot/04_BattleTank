@@ -20,14 +20,14 @@ public:
 
 private:
 	// Maximum number of degrees the barrel can move each second
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxDegreesPerSecond = 10;		
 
 	// Maximum Elevation in degrees
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxElevation = 40;	
 
 	// Minimum Elevation in degrees
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MinElevation = 0;						// TODO: make minElevation -5 but only when turret rotation is between -5 and +5 degrees (i.e. facing forward)
 };
