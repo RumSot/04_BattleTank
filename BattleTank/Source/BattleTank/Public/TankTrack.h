@@ -19,10 +19,22 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Input)
 	void SetThrottle(float Throttle);
 
-	void Forward(float Speed);
-	void Reverse(float Speed);
+	// TODO: Activate when the tracks forward key is pressed
+	// Increments a throttle until it reaches its limit (currently 0 to +1)
+	void Forward(void);
+
+	// TODO: Activate when the tracks reverse key is pressed
+	// Decrements a throttle until it reaches its limit (currently 0 to -1)
+	void Reverse(void);
+
+	// TODO: Pressing both keys cancels out the throttle inc/dec
+
+	// TODO: Stop Tank both tank tracks when space is hit
 
 private:
+	// Max force per track in newtons
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	float TrackMaxDrivingForce = 750000.0;		// Assume 75 tonne tank and 1G acceleration (75000 kg x 10 m/s2)
 
 	float TrackThrottle = 0;
 };

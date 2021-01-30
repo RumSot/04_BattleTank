@@ -6,18 +6,31 @@
 
 void UTankTrack::SetThrottle(float Throttle)
 {
-	// TODO: clamp the throttle
-	Throttle = FMath::Clamp(Throttle, -1.0f, +1.0f);
-
 	//auto Time = GetWorld()->GetTimeSeconds();
 	auto Name = GetName();
 	UE_LOG(LogTemp, Warning, TEXT("%s throttle: %f"), *Name, Throttle);
+
+	// TODO: clamp the throttle
+	// Throttle = FMath::Clamp(Throttle, -1.0f, +1.0f);
+
+	// The tracks x-axis is aligned with the tanks direction, 
+	// hence the forward vector gives us the direction of movement (positive for forward, negative for reverse)
+	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
+
+	// The tracks socket location is where we want to apply the force
+	auto ForceLocation = GetComponentLocation();
+
+	// https://docs.unrealengine.com/en-US/API/Runtime/Engine/Components/UStaticMeshComponent/index.html
+	// First we get the tracks root component, then we try to add force at the location.
+	// This will not be possible for the USceneComponent, so we cast down until AddForceAtLocation() becomes available.
+	auto TankRoot = Cast<UPrimitiveComponent>(GetOwner()->GetRootComponent());
+	TankRoot->AddForceAtLocation(ForceApplied, ForceLocation);
 }
 
-void UTankTrack::Forward(float Speed)
+void UTankTrack::Forward(void)
 {
 }
 
-void UTankTrack::Reverse(float Speed)
+void UTankTrack::Reverse(void)
 {
 }
