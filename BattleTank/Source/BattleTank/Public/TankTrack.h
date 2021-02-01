@@ -31,10 +31,9 @@ public:
 
 	// TODO: Stop Tank both tank tracks when space is hit
 
-private:
-	// Max force per track in newtons
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
-	float TrackMaxDrivingForce = 750000.0;		// Assume 75 tonne tank and 1G acceleration (75000 kg x 10 m/s2)
+	// Max force per track in 100ths of newtons
+	UPROPERTY(EditDefaultsOnly)					// Note: in unreal the unit of measure is cm not m
+	double TrackMaxDrivingForce = 75000000.0;	// Assume 75 tonne tank and 1G acceleration (75000 kg x 10 m/s2 x 100cm)
 
 	float TrackThrottle = 0;
 };

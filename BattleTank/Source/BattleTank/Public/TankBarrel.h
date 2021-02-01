@@ -18,7 +18,6 @@ public:
 	// The percentage of the maximum elevation speed, -1.00 is 100% downward and +1.00 is 100% upward
 	void Elevate(float RelativeSpeed);
 
-private:
 	// Maximum number of degrees the barrel can move each second
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxDegreesPerSecond = 10;		
