@@ -4,7 +4,7 @@
 #include "TankBarrel.h"				// If we are going to call a method then a forward declaration isn't enough
 #include "TankTurret.h"
 
-#include "Kismet/GameplayStatics.h"
+#include "Kismet/GameplayStatics.h"	
 
 
 // Sets default values for this component's properties
