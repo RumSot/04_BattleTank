@@ -61,3 +61,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT56 ApplyForceAtLocation() in Action
 * BT57 Physics Materials & Friction
 * BT58 Fly-by-Wire Control System
+* BT59 Using BlueprintReadOnly

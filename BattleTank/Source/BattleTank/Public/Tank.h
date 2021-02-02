@@ -10,6 +10,7 @@
 // Forward declarations
 class UTankBarrel;	
 class UTankAimingComponent; 
+class UTankMovementComponent;
 class AProjectile;
 
 UCLASS()
@@ -32,6 +33,9 @@ public:
 protected:
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
+	UPROPERTY(BlueprintReadOnly)
+	UTankMovementComponent* TankMovementComponent = nullptr;
+
 private:
 	// Sets default values for this pawn's properties
 	ATank();
@@ -49,6 +53,8 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;	// Alternative: https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/TSubclassOf/index.html
+
+
 
 	// Local barrel reference for spawning projectile
 	UTankBarrel* Barrel = nullptr;
