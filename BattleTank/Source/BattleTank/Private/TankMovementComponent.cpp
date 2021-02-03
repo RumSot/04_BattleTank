@@ -7,8 +7,8 @@
 
 void UTankMovementComponent::Initialise(UTankTrack * LeftTrackToSet, UTankTrack * RightTrackToSet)
 {
+	// Protect our pointers
 	if (!LeftTrackToSet || !RightTrackToSet) {
-		// TODO: Report an error if having problems
 		return;
 	}
 
@@ -18,10 +18,6 @@ void UTankMovementComponent::Initialise(UTankTrack * LeftTrackToSet, UTankTrack 
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	//auto Time = GetWorld()->GetTimeSeconds();
-	//auto Name = GetName();
-	UE_LOG(LogTemp, Warning, TEXT("Intend Move Forward Throw: %f"), Throw);
-
 	// Protect our pointers
 	if (!LeftTrack || !RightTrack) {
 		return;
@@ -30,4 +26,16 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 	// TODO: Clamp speed due to dual control input
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
+}
+
+void UTankMovementComponent::IntendTurnRight(float Throw)
+{
+	// Protect our pointers
+	if (!LeftTrack || !RightTrack) {
+		return;
+	}
+
+	// TODO: Clamp speed due to dual control input
+	LeftTrack->SetThrottle(Throw);
+	RightTrack->SetThrottle(-Throw);
 }

@@ -6,11 +6,6 @@
 
 void UTankTrack::SetThrottle(float Throttle)
 {
-
-
-	// TODO: clamp the throttle
-	// Throttle = FMath::Clamp(Throttle, -1.0f, +1.0f);
-
 	// The tracks x-axis is aligned with the tanks direction, 
 	// hence the forward vector gives us the direction of movement (positive for forward, negative for reverse)
 	auto ForceApplied = GetForwardVector() * Throttle * TrackMaxDrivingForce;
