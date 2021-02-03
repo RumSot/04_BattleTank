@@ -65,3 +65,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT60 A Better Component Architecture
 * BT61 Completing Manual Tank Movement
 * BT62 Introducing AI Pathfinding
+* BT63 Dissecting RequestDirectMove()
