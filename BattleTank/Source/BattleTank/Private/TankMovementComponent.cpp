@@ -35,7 +35,6 @@ void UTankMovementComponent::IntendTurnRight(float Throw)
 		return;
 	}
 
-	// TODO: Clamp speed due to dual control input
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);
 }
