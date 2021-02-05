@@ -20,6 +20,6 @@ public:
 	
 private:
 	// Maximum number of degrees the barrel can move each second
-	UPROPERTY(EditDefaultsOnly, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float MaxDegreesPerSecond = 25;
 };

@@ -70,3 +70,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT65 CrossProduct() Vector Operator
 * BT66 Finalising Your Class Code
 * BT67 How to Use Blueprint Variables
+* BT68 Using Enum(erations) in UE4
