@@ -31,6 +31,7 @@ public:
 	void Fire();	// Note: Unreal wont' allow void Fire(void)
 
 protected:
+	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
 	UPROPERTY(BlueprintReadOnly)

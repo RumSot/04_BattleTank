@@ -69,3 +69,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT64 DotProduct() Vector Operator
 * BT65 CrossProduct() Vector Operator
 * BT66 Finalising Your Class Code
+* BT67 How to Use Blueprint Variables

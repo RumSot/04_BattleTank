@@ -18,11 +18,14 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 
+protected:
+	// Since this is BlueprintCallable it needs to be protected not private (because a blueprint is a subclass of this class).
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+	ATank* GetControlledTank() const;
+
 private:
 	virtual void BeginPlay(void) override;
 	virtual void Tick(float DeltaSeconds) override;
-
-	ATank* GetControlledTank(void) const;
 
 	// Starts moving the tank's barrel towards the point where the croshair intersects with the world.
 	void AimTowardsCrosshair(void);
