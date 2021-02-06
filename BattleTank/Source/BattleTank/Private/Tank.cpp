@@ -18,6 +18,13 @@ ATank::ATank()
 
 void ATank::AimAt(FVector HitLocation)
 {
+	if (!TankAimingComponent) {
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: ATank::AimAt(): TankAimingComponent is a nullptr"), Time);
+
+		return;
+	}
+
 	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 

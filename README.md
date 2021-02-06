@@ -72,3 +72,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT67 How to Use Blueprint Variables
 * BT68 Using Enum(erations) in UE4
 * BT69 Refactoring our Aiming Component
+* BT70 Attaching a Debugger to Unreal
