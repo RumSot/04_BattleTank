@@ -35,6 +35,9 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
+	// TODO: Remove after debugging
+	virtual void BeginPlay() override;
+
 	// Tank does not need to tick, hence no tick method. Turning this off to improves performance.
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")

@@ -13,6 +13,21 @@ ATank::ATank()
  	// Set this pawn to call Tick() every frame.  
 	// We have turned this off to improve performance as Tank doesn't need it.
 	PrimaryActorTick.bCanEverTick = false;
+
+	// TODO: Delete debug log
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s RUMSOT: Tank C++ Constructor"), *TankName);
+}
+
+
+// Called when the game starts or when spawned
+void ATank::BeginPlay()
+{
+	Super::BeginPlay();	// Needed for Blueprint BeginPlay to run
+
+	// TODO: Delete debug log
+	auto TankName = GetName();
+	UE_LOG(LogTemp, Warning, TEXT("%s RUMSOT: Tank C++ BeginPlay"), *TankName);
 }
 
 
