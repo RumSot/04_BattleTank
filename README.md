@@ -75,3 +75,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT70 Attaching a Debugger to Unreal
 * BT71 Constructor & Begin Play Timing
 * BT72 Decoupling Your Architecture
+* BT73 BlueprintImplementableEvent
