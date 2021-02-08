@@ -8,7 +8,7 @@
 void UTankMovementComponent::Initialise(UTankTrack * LeftTrackToSet, UTankTrack * RightTrackToSet)
 {
 	// Protect our pointers
-	if (!LeftTrackToSet || !RightTrackToSet) {
+	if (!ensure(LeftTrackToSet && RightTrackToSet)) {
 		return;
 	}
 
@@ -19,7 +19,7 @@ void UTankMovementComponent::Initialise(UTankTrack * LeftTrackToSet, UTankTrack 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
 	// Protect our pointers
-	if (!LeftTrack || !RightTrack) {
+	if (!ensure(LeftTrack && RightTrack)) {
 		return;
 	}
 
@@ -31,7 +31,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
 	// Protect our pointers
-	if (!LeftTrack || !RightTrack) {
+	if (!ensure(LeftTrack && RightTrack)) {
 		return;
 	}
 

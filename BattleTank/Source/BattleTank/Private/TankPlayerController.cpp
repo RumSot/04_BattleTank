@@ -14,11 +14,11 @@ void ATankPlayerController::BeginPlay(void)
 
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
 
-	if (AimingComponent) {
-		FoundAimingComponent(AimingComponent);	// Broadcasts the event to Blueprint
+	if (!ensure(AimingComponent)) {
+		UE_LOG(LogTemp, Error, TEXT("PlayerController: AimingComponent not found at BeginPlay")); 
 	}
 	else {
-		UE_LOG(LogTemp, Error, TEXT("PlayerController: AimingComponent not found at BeginPlay"));
+		FoundAimingComponent(AimingComponent);	// Broadcasts the event to Blueprint
 	}
 }
 
@@ -34,7 +34,7 @@ ATank * ATankPlayerController::GetControlledTank(void) const
 {
 	auto PlayerPawn = GetPawn();
 
-	if (!PlayerPawn) {
+	if (!ensure(PlayerPawn)) {
 		return nullptr;
 	}
 
@@ -45,7 +45,7 @@ ATank * ATankPlayerController::GetControlledTank(void) const
 void ATankPlayerController::AimTowardsCrosshair(void)
 {
 	// Pointer guard
-	if (!GetControlledTank()) {
+	if (!ensure(GetControlledTank())) {
 		return;
 	}
 

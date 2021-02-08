@@ -19,7 +19,7 @@ void ATankAIController::Tick(float DeltaSeconds)
 	auto ControlledTank = Cast<ATank>(GetPawn());
 
 	// Pointer guard
-	if (PlayerTank) {
+	if (ensure(PlayerTank)) {
 		// Move towards the player
 		MoveToActor(PlayerTank, AcceptanceRadius, true, true, false); 
 
