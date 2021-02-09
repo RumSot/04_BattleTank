@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "TankAimingComponent.h"
 #include "TankPlayerController.h"
+#include "TankAimingComponent.h"
 #include "Tank.h"
 
 #include "Engine/World.h"
@@ -14,12 +14,13 @@ void ATankPlayerController::BeginPlay(void)
 
 	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
 
+	// The ensure will print out an error to the log file if the argument is a nullptr
+	// It will then return true if there is a pointer and false if it is a nullptr
 	if (!ensure(AimingComponent)) {
-		UE_LOG(LogTemp, Error, TEXT("PlayerController: AimingComponent not found at BeginPlay")); 
+		return;
 	}
-	else {
-		FoundAimingComponent(AimingComponent);	// Broadcasts the event to Blueprint
-	}
+
+	FoundAimingComponent(AimingComponent);	// Broadcasts the event to Blueprint
 }
 
 

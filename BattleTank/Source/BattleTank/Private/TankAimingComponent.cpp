@@ -75,7 +75,9 @@ void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
-	if (!ensure(Barrel && Turret)) {
+	// The ensure will print out an error to the log file if the argument is a nullptr
+	// It will then return true if there is a pointer and false if it is a nullptr
+	if (!ensure(Barrel) || !ensure(Turret)) {
 		return;
 	}
 
