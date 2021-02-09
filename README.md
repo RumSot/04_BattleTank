@@ -77,3 +77,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT72 Decoupling Your Architecture
 * BT73 BlueprintImplementableEvent
 * BT74 Using the ensure Assertion
+* BT75 Dependency Mapping
