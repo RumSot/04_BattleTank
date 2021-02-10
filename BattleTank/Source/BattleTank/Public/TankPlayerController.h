@@ -8,7 +8,6 @@
 
 
 // Forward declarations
-class ATank;
 class UTankAimingComponent;
 
 /**
@@ -20,10 +19,6 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 
 protected:
-	// Since this is BlueprintCallable it needs to be protected not private (because a blueprint is a subclass of this class).
-	UFUNCTION(BlueprintCallable, Category = "Setup")
-	ATank* GetControlledTank() const;
-
 	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
 	void FoundAimingComponent(UTankAimingComponent* AimComRef);
 

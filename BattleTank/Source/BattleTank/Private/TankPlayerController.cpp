@@ -3,7 +3,6 @@
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
-#include "Tank.h"
 
 #include "Engine/World.h"
 
@@ -12,7 +11,8 @@ void ATankPlayerController::BeginPlay(void)
 {
 	Super::BeginPlay();
 
-	auto AimingComponent = GetControlledTank()->FindComponentByClass<UTankAimingComponent>();
+	// Get the controlled tanks aiming component
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 
 	// The ensure will print out an error to the log file if the argument is a nullptr
 	// It will then return true if there is a pointer and false if it is a nullptr
@@ -31,22 +31,14 @@ void ATankPlayerController::Tick(float DeltaSeconds)
 	AimTowardsCrosshair();
 }
 
-ATank * ATankPlayerController::GetControlledTank(void) const
-{
-	auto PlayerPawn = GetPawn();
-
-	if (!ensure(PlayerPawn)) {
-		return nullptr;
-	}
-
-	return Cast<ATank>(PlayerPawn);		// In the event of a nullptr or an invalid pointer this cast would fail. So we could remove the nullptr guard above (however I choose to be specific for clarity).
-}
-
 
 void ATankPlayerController::AimTowardsCrosshair(void)
 {
+	// Get the controlled tanks aiming component
+	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+
 	// Pointer guard
-	if (!ensure(GetControlledTank())) {
+	if (!ensure(AimingComponent)) {
 		return;
 	}
 
@@ -54,7 +46,7 @@ void ATankPlayerController::AimTowardsCrosshair(void)
 
 	if (GetSightRayHitLocation(OUT HitLocation)) 	// Has side-effect, is going to line trace
 	{
-		GetControlledTank()->AimAt(HitLocation);
+		AimingComponent->AimAt(HitLocation);
 	}
 }
 

@@ -3,7 +3,6 @@
 #include "Tank.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
-#include "TankAimingComponent.h"
 
 
 // Sets default values
@@ -19,24 +18,13 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();	// Needed for Blueprint BeginPlay to run
-
-	TankAimingComponent = FindComponentByClass<UTankAimingComponent>();
-}
-
-
-void ATank::AimAt(FVector HitLocation)
-{
-	if (!ensure(TankAimingComponent)) {
-		return;
-	}
-
-	TankAimingComponent->AimAt(HitLocation, LaunchSpeed);
 }
 
 
 void ATank::Fire()
 {
-	if (!ensure(Barrel)) {
+}
+/*if (!ensure(Barrel)) {
 		return;
 	}
 
@@ -51,8 +39,8 @@ void ATank::Fire()
 			Barrel->GetSocketRotation(FName("Projectile"))
 			);
 
-		Projectile->LaunchProjectile(LaunchSpeed);
+		Projectile->LaunchProjectile(5000); // LaunchSpeed);
 		LastFireTime = GetWorld()->GetTimeSeconds();
 	}
-}
+}*/
 
