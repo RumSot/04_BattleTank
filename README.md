@@ -80,3 +80,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT75 Dependency Mapping
 * BT76 Starting From Green
 * BT77 Aiming Without the Tank
+* BT78 Finishing our Refactoring

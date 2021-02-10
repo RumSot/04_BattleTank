@@ -3,6 +3,7 @@
 #include "TankAimingComponent.h"
 #include "TankBarrel.h"				// If we are going to call a method then a forward declaration isn't enough
 #include "TankTurret.h"
+#include "Projectile.h"
 
 #include "Kismet/GameplayStatics.h"	
 
@@ -26,6 +27,30 @@ void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * T
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
 }
+
+
+void UTankAimingComponent::Fire()
+{
+	if (!ensure(Barrel && ProjectileBlueprint)) {
+		return;
+	}
+
+	// Note: FPlatformTime::Seconds() is problematic as it is the system time and hence continues when the game is paused.
+	bool bIsReloaded = ((GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds);
+
+	if (bIsReloaded) {
+		// Spawn a projectile at the socket location on the barrel
+		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
+			ProjectileBlueprint,
+			Barrel->GetSocketLocation(FName("Projectile")),
+			Barrel->GetSocketRotation(FName("Projectile"))
+			);
+
+		Projectile->LaunchProjectile(LaunchSpeed);
+		LastFireTime = GetWorld()->GetTimeSeconds();
+	}
+}
+
 
 void UTankAimingComponent::AimAt(FVector HitLocation)
 {
