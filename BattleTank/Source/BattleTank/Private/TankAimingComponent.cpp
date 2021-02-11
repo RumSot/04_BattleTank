@@ -16,11 +16,27 @@ UTankAimingComponent::UTankAimingComponent()
 
 
 //	bWantsBeginPlay = true;
-	PrimaryComponentTick.bCanEverTick = false;
+	PrimaryComponentTick.bCanEverTick = true;
 
 	// ...
 }
 
+void UTankAimingComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	LastFireTime = GetWorld()->GetTimeSeconds();
+}
+
+void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	// Note: FPlatformTime::Seconds() is problematic as it is the system time and hence continues when the game is paused.
+	FiringStatus = ((GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds) ? EFiringStatus::Aiming : EFiringStatus::Reloading;;
+
+	// TODO: Check whether on target
+}
 
 void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet)
 {
@@ -31,14 +47,16 @@ void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * T
 
 void UTankAimingComponent::Fire()
 {
-	if (!ensure(Barrel && ProjectileBlueprint)) {
-		return;
-	}
 
-	// Note: FPlatformTime::Seconds() is problematic as it is the system time and hence continues when the game is paused.
-	bool bIsReloaded = ((GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds);
 
-	if (bIsReloaded) {
+	if (FiringStatus != EFiringStatus::Reloading) {
+		if (!ensure(Barrel)) {
+			return;
+		}
+		if (!ensure(ProjectileBlueprint)) {
+			return;
+		}
+
 		// Spawn a projectile at the socket location on the barrel
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 			ProjectileBlueprint,
@@ -97,6 +115,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 //		UE_LOG(LogTemp, Error, TEXT("%f: %s does not have an aiming soluition"), Time, *TankName);
 	}
 }
+
 
 void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 {
