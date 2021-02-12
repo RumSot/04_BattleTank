@@ -48,7 +48,9 @@ private:
 	// Sets default values for this component's properties
 	UTankAimingComponent();
 
-	void MoveBarrelTowards(FVector AimDirection);
+	void MoveBarrelTowardsAimDirection();
+
+	bool IsBarrelMoving();
 
 	UTankBarrel* Barrel = nullptr;
 	UTankTurret* Turret = nullptr;
@@ -63,5 +65,7 @@ private:
 	float LaunchSpeed = 5000;
 
 	float LastFireTime = 0;
+
+	FVector AimDirection;
 
 };

@@ -82,3 +82,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT77 Aiming Without the Tank
 * BT78 Finishing our Refactoring
 * BT79 Adding TickComponent() Back
+* BT80 Are Two Floats Equal?

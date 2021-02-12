@@ -33,9 +33,15 @@ void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, F
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// Note: FPlatformTime::Seconds() is problematic as it is the system time and hence continues when the game is paused.
-	FiringStatus = ((GetWorld()->GetTimeSeconds() - LastFireTime) > ReloadTimeInSeconds) ? EFiringStatus::Aiming : EFiringStatus::Reloading;;
-
-	// TODO: Check whether on target
+	if (((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeInSeconds)) {
+		FiringStatus = EFiringStatus::Reloading;
+	}
+	else if (IsBarrelMoving()) {
+		FiringStatus = EFiringStatus::Aiming;
+	}
+	else {
+		FiringStatus = EFiringStatus::Locked;
+	}
 }
 
 void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * TurretToSet)
@@ -97,10 +103,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	);
 
 
+	AimDirection = OutLaunchVelocity.GetSafeNormal();
+
 	if (bHaveAimSolution) 
 	{
-		auto AimDirection = OutLaunchVelocity.GetSafeNormal();
-		MoveBarrelTowards(AimDirection);
+		MoveBarrelTowardsAimDirection();
 
 //		TODO: Remove?
 //		auto TankName = GetOwner()->GetName();
@@ -117,7 +124,7 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 }
 
 
-void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
+void UTankAimingComponent::MoveBarrelTowardsAimDirection()
 {
 	// The ensure will print out an error to the log file if the argument is a nullptr
 	// It will then return true if there is a pointer and false if it is a nullptr
@@ -132,4 +139,15 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 
 	Barrel->Elevate(DeltaRotator.Pitch);
 	Turret->Rotate(FMath::ClampAngle(DeltaRotator.Yaw, -179, 180));	// Clamping the angle means the turret can go right around
+}
+
+bool UTankAimingComponent::IsBarrelMoving()
+{
+	if (!ensure(Barrel)) {
+		return false;
+	}
+
+	auto BarrelDirection = Barrel->GetForwardVector();	// better for documentation than putting it all on one line
+
+	return !(BarrelDirection.Equals(AimDirection, 0.1f));
 }
