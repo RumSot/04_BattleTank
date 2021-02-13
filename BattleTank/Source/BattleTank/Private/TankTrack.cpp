@@ -1,8 +1,29 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "TankTrack.h"
 
+
+UTankTrack::UTankTrack()
+{
+	PrimaryComponentTick.bCanEverTick = true;
+}
+
+void UTankTrack::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
+{
+	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	auto Velocity = GetComponentVelocity();
+	auto RightVector = GetRightVector();
+	auto SlippageSpeed = FVector::DotProduct(Velocity, RightVector);	// the order of a dot product doesn't matter
+
+	// Work-out the required acceleration this frame to correct
+	auto CorrectionAcceleration = -((SlippageSpeed / DeltaTime) * RightVector);
+
+	// Calulate and appy sideways force (F = m a)
+	auto TankRoot = Cast<UStaticMeshComponent>(GetOwner()->GetRootComponent());		// this takes us from a UTankTrack to a USceneComponent
+	auto CorrectionForce = (TankRoot->GetMass() * CorrectionAcceleration) / 2;		// there are two tracks hence we divide by 2
+	TankRoot->AddForce(CorrectionForce);
+}
 
 void UTankTrack::SetThrottle(float Throttle)
 {
@@ -27,3 +48,4 @@ void UTankTrack::Forward(void)
 void UTankTrack::Reverse(void)
 {
 }
+
