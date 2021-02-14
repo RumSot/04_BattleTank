@@ -19,7 +19,12 @@ private:
 	// Note: in order to make a class tick we need a constructor
 	UTankTrack();
 
+	virtual void BeginPlay() override;
+
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
+
+	UFUNCTION(BlueprintCallable, Category = "Collision")
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 public:
 	// Sets a throttle between -1 and +1
