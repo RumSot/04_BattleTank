@@ -21,15 +21,17 @@ private:
 
 	virtual void BeginPlay() override;
 
-	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
-
 	UFUNCTION(BlueprintCallable, Category = "Collision")
 	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	void ApplySidewaysForce();
 
 public:
 	// Sets a throttle between -1 and +1
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
+
+	void DriveTrack();
 
 	// TODO: Activate when the tracks forward key is pressed
 	// Increments a throttle until it reaches its limit (currently 0 to +1)
@@ -47,5 +49,6 @@ public:
 	UPROPERTY(EditDefaultsOnly)					// Note: in unreal the unit of measure is cm not m
 	double TrackMaxDrivingForce = 75000000.0;	// Assume 75 tonne tank and 1G acceleration (75000 kg x 10 m/s2 x 100cm)
 
-	float TrackThrottle = 0;
+	float CurrentThrottle = 0;
 };
+
