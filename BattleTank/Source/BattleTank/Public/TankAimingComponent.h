@@ -13,7 +13,8 @@ enum class EFiringStatus : uint8
 {
 	Reloading,	// Red
 	Aiming,		// Amber
-	Locked		// Green
+	Locked,		// Green
+	OutOfAmmo	// Grey
 };
 
 // Forward declarations
@@ -27,7 +28,7 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	virtual void BeginPlay() override;
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
@@ -41,6 +42,9 @@ public:
 	void AimAt(FVector HitLocation);
 
 	EFiringStatus GetFiringStatus() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Firing")
+	int GetRoundsLeft() const;
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Status")
@@ -66,8 +70,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Firing")
 	float LaunchSpeed = 5000;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Firing")
+	int RoundsLeft = 3;
+
 	float LastFireTime = 0;
 
 	FVector AimDirection;
-
 };

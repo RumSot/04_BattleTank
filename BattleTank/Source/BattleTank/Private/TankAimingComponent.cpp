@@ -30,10 +30,13 @@ void UTankAimingComponent::BeginPlay()
 
 void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction * ThisTickFunction)
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+	//Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// Note: FPlatformTime::Seconds() is problematic as it is the system time and hence continues when the game is paused.
-	if (((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeInSeconds)) {
+	if (RoundsLeft <= 0) {
+		FiringStatus = EFiringStatus::OutOfAmmo;
+	}	
+	else if (((GetWorld()->GetTimeSeconds() - LastFireTime) < ReloadTimeInSeconds)) {
 		FiringStatus = EFiringStatus::Reloading;
 	}
 	else if (IsBarrelMoving()) {
@@ -53,9 +56,7 @@ void UTankAimingComponent::Initialise(UTankBarrel * BarrelToSet, UTankTurret * T
 
 void UTankAimingComponent::Fire()
 {
-
-
-	if (FiringStatus != EFiringStatus::Reloading) {
+	if (FiringStatus == EFiringStatus::Locked || FiringStatus == EFiringStatus::Aiming) {
 		if (!ensure(Barrel)) {
 			return;
 		}
@@ -72,6 +73,8 @@ void UTankAimingComponent::Fire()
 
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = GetWorld()->GetTimeSeconds();
+
+		RoundsLeft--;
 	}
 }
 
@@ -126,6 +129,11 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 EFiringStatus UTankAimingComponent::GetFiringStatus() const
 {
 	return FiringStatus;
+}
+
+int UTankAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
 }
 
 

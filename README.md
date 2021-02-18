@@ -88,3 +88,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT83 Avoiding Boolean Flags
 * BT84 Improving Tank Aiming
 * BT85 Tweaking Tank AI
+* BT86 Making an Ammo Display
