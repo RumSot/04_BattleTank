@@ -152,7 +152,7 @@ void UTankAimingComponent::MoveBarrelTowardsAimDirection()
 
 	Barrel->Elevate(DeltaRotator.Pitch);
 
-	auto ShortestAngle = (DeltaRotator.Yaw <= 180) ? DeltaRotator.Yaw : -DeltaRotator.Yaw;
+	auto ShortestAngle = (FMath::Abs(DeltaRotator.Yaw) <= 180) ? DeltaRotator.Yaw : -DeltaRotator.Yaw;
 	Turret->Rotate(ShortestAngle);
 }
 
