@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+#include "Kismet/GameplayStatics.h"
 #include "Projectile.h"
 
 // Sets default values
@@ -50,8 +51,18 @@ void AProjectile::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor,
 	SetRootComponent(ImpactBlast);	// TODO: do we really want to keep this around?
 	CollisionMesh->DestroyComponent();
 
-	FTimerHandle InOutTimerHandle;
+	// TODO: randomise damage done.
 
+	UGameplayStatics::ApplyRadialDamage(this,	// const UObject* WorldContextObject,
+		ProjectileDamage,						// float BaseDamage, 
+		GetActorLocation(),						// const FVector& Origin,
+		ExplosionForce->Radius,					// float DamageRadius,								Note: if we change the radius in Projectile_BP this will automatically filter down
+		UDamageType::StaticClass(),				// TSubclassOf<class UDamageType> DamageTypeClass,
+		TArray<AActor *> ()						// const TArray<AActor*> &IgnoreActors,				Note: by passing an empty array we are saying damage all actors
+	);
+
+
+	FTimerHandle InOutTimerHandle;
 	GetWorld()->GetTimerManager().SetTimer(InOutTimerHandle, this, &AProjectile::DestroyProjectileOnTimerExpire, DestroyDelay);
 }
 

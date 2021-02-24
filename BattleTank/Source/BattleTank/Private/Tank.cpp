@@ -10,3 +10,20 @@ ATank::ATank()
 	// We have turned this off to improve performance as Tank doesn't need it.
 	PrimaryActorTick.bCanEverTick = false;
 }
+
+float ATank::TakeDamage(float Damage, FDamageEvent const & DamageEvent, AController * EventInstigator, AActor * DamageCauser)
+{
+	int32 DamagePoints = FPlatformMath::RoundToInt(Damage);
+	int32 DamageToApply = FMath::Clamp<int32>(DamagePoints, 0, CurrentHealth);
+
+//	UE_LOG(LogTemp, Warning, TEXT("DamageAmount = %f, DamageToApply = %i"), Damage, DamageToApply);
+
+	CurrentHealth -= DamageToApply;
+	if (CurrentHealth <= 0) {
+		auto TankName = GetOwner()->GetName();
+		auto Time = GetWorld()->GetTimeSeconds();
+		UE_LOG(LogTemp, Warning, TEXT("%f: %s exploded and is dead!"), Time, *TankName);
+	}
+
+	return static_cast<float>(DamageToApply);
+}
