@@ -97,3 +97,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT92 Particle Bounding Boxes
 * BT93 Using FAttachmentTransformRules
 * BT94 Radial Forces & Caching
+* BT95 Using GetTimerManager()

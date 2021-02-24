@@ -46,6 +46,18 @@ void AProjectile::OnHit(UPrimitiveComponent * HitComponent, AActor * OtherActor,
 	LaunchBlast->Deactivate();
 	ImpactBlast->Activate();
 	ExplosionForce->FireImpulse();
+
+	SetRootComponent(ImpactBlast);	// TODO: do we really want to keep this around?
+	CollisionMesh->DestroyComponent();
+
+	FTimerHandle InOutTimerHandle;
+
+	GetWorld()->GetTimerManager().SetTimer(InOutTimerHandle, this, &AProjectile::DestroyProjectileOnTimerExpire, DestroyDelay);
+}
+
+void AProjectile::DestroyProjectileOnTimerExpire()
+{
+	Destroy();
 }
 
 void AProjectile::LaunchProjectile(float Speed)
