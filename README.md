@@ -99,3 +99,4 @@ BattleTank is an open-world head-to-head tank fight with simple AI, terrain, and
 * BT94 Radial Forces & Caching
 * BT95 Using GetTimerManager()
 * BT96 Using TakeDamage() on Actors
+* BT97 BlueprintPure & Health Bars
