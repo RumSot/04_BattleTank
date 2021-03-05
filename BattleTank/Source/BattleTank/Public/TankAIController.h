@@ -3,7 +3,6 @@
 #pragma once
 
 #include "AIController.h"
-
 #include "CoreMinimal.h"
 #include "TankAIController.generated.h"
 
@@ -25,7 +24,11 @@ protected:
 
 private:
 	virtual void BeginPlay(void) override;
+
+	virtual void SetPawn(APawn* InPawn) override;
+
 	virtual void Tick(float DeltaSeconds) override;
 
-
+	UFUNCTION()
+	void OnTankDeath();
 };

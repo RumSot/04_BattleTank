@@ -24,6 +24,9 @@ protected:
 
 private:
 	virtual void BeginPlay(void) override;
+
+	virtual void SetPawn(APawn* InPawn) override;
+
 	virtual void Tick(float DeltaSeconds) override;
 
 	// Starts moving the tank's barrel towards the point where the croshair intersects with the world.
@@ -44,4 +47,7 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float LineTraceRange = 1000000;	// 10km
+
+	UFUNCTION()
+	void OnTankDeath();
 };

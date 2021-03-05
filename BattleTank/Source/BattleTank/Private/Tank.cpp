@@ -20,9 +20,7 @@ float ATank::TakeDamage(float Damage, FDamageEvent const & DamageEvent, AControl
 
 	CurrentHealth -= DamageToApply;
 	if (CurrentHealth <= 0) {
-		auto TankName = GetOwner()->GetName();
-		auto Time = GetWorld()->GetTimeSeconds();
-		UE_LOG(LogTemp, Warning, TEXT("%f: %s exploded and is dead!"), Time, *TankName);
+		OnDeath.Broadcast();
 	}
 
 	return static_cast<float>(DamageToApply);
@@ -32,3 +30,4 @@ float ATank::GetHealthPercent() const
 {
 	return static_cast<float>(CurrentHealth) / static_cast<float>(StartingHealth);
 }
+

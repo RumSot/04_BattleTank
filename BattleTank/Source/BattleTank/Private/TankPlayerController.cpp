@@ -3,7 +3,8 @@
 
 #include "TankPlayerController.h"
 #include "TankAimingComponent.h"
-
+#include "Tank.h"
+#include "Delegates/Delegate.h"
 #include "Engine/World.h"
 
 
@@ -21,6 +22,19 @@ void ATankPlayerController::BeginPlay(void)
 	}
 
 	FoundAimingComponent(AimingComponent);	// Broadcasts the event to Blueprint
+}
+
+void ATankPlayerController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+
+	if (InPawn) {
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) {
+			return;
+		}
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnTankDeath);	// Subscribe our local method to the tanks death event
+	}
 }
 
 
@@ -97,6 +111,13 @@ bool ATankPlayerController::GetLookVectorHitlocation(FVector LookDirection, OUT 
 	HitLocation = FVector(0.0f);
 
 	return false;
+}
+
+void ATankPlayerController::OnTankDeath()
+{
+	auto Time = GetWorld()->GetTimeSeconds();
+
+	UE_LOG(LogTemp, Warning, TEXT("%f: Player tank exploded and is dead!"), Time);
 }
 
 

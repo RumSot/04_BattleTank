@@ -2,6 +2,8 @@
 
 #include "TankAIController.h"
 #include "TankAimingComponent.h"
+#include "Tank.h"
+#include "Delegates/Delegate.h"
 //#include "Engine/World.h"
 
 
@@ -9,6 +11,19 @@ void ATankAIController::BeginPlay(void)
 {
 	Super::BeginPlay();
 
+}
+
+void ATankAIController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+
+	if (InPawn) {
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) {
+			return;
+		}
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);	// Subscribe our local method to the tanks death event
+	}
 }
 
 
@@ -36,4 +51,11 @@ void ATankAIController::Tick(float DeltaSeconds)
 	if (AimingComponent->GetFiringStatus() == EFiringStatus::Locked) {
 		AimingComponent->Fire();		// TODO: Reduce fire rate to something reasonable
 	}
+}
+
+void ATankAIController::OnTankDeath()
+{
+	auto Time = GetWorld()->GetTimeSeconds();
+
+	UE_LOG(LogTemp, Warning, TEXT("%f: AI tank exploded and is dead!"), Time);
 }
