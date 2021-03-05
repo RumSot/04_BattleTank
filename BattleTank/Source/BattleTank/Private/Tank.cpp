@@ -11,6 +11,13 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 }
 
+void ATank::BeginPlay(void)
+{
+	Super::BeginPlay();
+
+	CurrentHealth = StartingHealth;		// Setting this value here ensures that changes to the value in the Blueprint are reflected
+}
+
 float ATank::TakeDamage(float Damage, FDamageEvent const & DamageEvent, AController * EventInstigator, AActor * DamageCauser)
 {
 	int32 DamagePoints = FPlatformMath::RoundToInt(Damage);

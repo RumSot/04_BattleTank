@@ -18,6 +18,8 @@ private:
 	// Sets default values for this pawn's properties
 	ATank();
 
+	virtual void BeginPlay(void) override;
+
 	// Tank does not need to tick, hence no tick method. Turning this off to improves performance.
 
 public:
@@ -35,5 +37,5 @@ private:
 	int32 StartingHealth = 100;
 
 	UPROPERTY(VisibleAnywhere, Category = "Health")
-	int32 CurrentHealth = StartingHealth;	// TODO: when current health falls below a certain limit (0 here) the tank should be destroyed	
+	int32 CurrentHealth;	// Set in BeginPlay not here or in the constructor because it is too soon for the Blueprint
 };

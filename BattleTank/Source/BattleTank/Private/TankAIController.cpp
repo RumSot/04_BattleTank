@@ -32,6 +32,10 @@ void ATankAIController::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
+	if (!PlayerTank) {
+		return;
+	}
+
 
 	// Get the controlled tanks aiming component
 	auto ControlledTank = GetPawn();
@@ -56,6 +60,12 @@ void ATankAIController::Tick(float DeltaSeconds)
 void ATankAIController::OnTankDeath()
 {
 	auto Time = GetWorld()->GetTimeSeconds();
+
+	if (!GetPawn()) {
+		return;
+	}
+
+	GetPawn()->DetachFromControllerPendingDestroy();
 
 	UE_LOG(LogTemp, Warning, TEXT("%f: AI tank exploded and is dead!"), Time);
 }

@@ -117,6 +117,7 @@ void ATankPlayerController::OnTankDeath()
 {
 	auto Time = GetWorld()->GetTimeSeconds();
 
+	StartSpectatingOnly();
 	UE_LOG(LogTemp, Warning, TEXT("%f: Player tank exploded and is dead!"), Time);
 }
 
