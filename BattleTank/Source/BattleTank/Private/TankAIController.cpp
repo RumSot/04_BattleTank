@@ -19,7 +19,7 @@ void ATankAIController::SetPawn(APawn* InPawn)
 
 	if (InPawn) {
 		auto PossessedTank = Cast<ATank>(InPawn);
-		if (!PossessedTank) {
+		if (!PossessedTank) {		// This may be the case if InPawn is a mortar
 			return;
 		}
 		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnTankDeath);	// Subscribe our local method to the tanks death event
@@ -41,7 +41,7 @@ void ATankAIController::Tick(float DeltaSeconds)
 	auto ControlledTank = GetPawn();
 
 	// Pointer guard
-	if (!ensure(PlayerTank) || !ensure(ControlledTank)) {
+	if (!PlayerTank || !ControlledTank) {
 		return;
 	}
 
