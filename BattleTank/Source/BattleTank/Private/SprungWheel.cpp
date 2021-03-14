@@ -29,7 +29,7 @@ void ASprungWheel::BeginPlay()
 	Super::BeginPlay();
 	
 	if (GetAttachParentActor()) {
-		UE_LOG(LogTemp, Warning, TEXT("Parent Actor Found"));
+		UE_LOG(LogTemp, Warning, TEXT("Parent Actor is %s"), *(GetAttachParentActor()->GetName()));
 	}
 	else {
 		UE_LOG(LogTemp, Warning, TEXT("Parent Actor Not Found"));
