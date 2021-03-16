@@ -17,9 +17,23 @@ void UTankTrack::SetThrottle(float Throttle)
 
 TArray<ASprungWheel*> UTankTrack::GetWheels() const
 {
-	// TODO: Implement GetWheels()
+	TArray<ASprungWheel*> Result;
 
-	return TArray<ASprungWheel*>;
+	TArray<USceneComponent*> Children;
+	USceneComponent::GetChildrenComponents(true, OUT Children);
+
+	for (auto Child : Children) {
+		auto SpawnPointChild = Cast<USpawnPoint>(Child);	// Note: Cast will return a nullptr if it fails
+		if (!SpawnPointChild) continue;
+
+		auto SpawnedActor = SpawnPointChild->GetSpawnedActor();
+		auto SprungWheel = Cast<ASprungWheel>(SpawnedActor);	// Note: Cast will return a nullptr if it fails
+		if (!SprungWheel) continue;
+
+		Result.Add(SprungWheel);
+	}
+
+	return Result;
 }
 
 void UTankTrack::DriveTrack(float CurrentThrottle)

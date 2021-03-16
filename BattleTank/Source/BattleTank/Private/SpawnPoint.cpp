@@ -21,16 +21,16 @@ void USpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
 
-	auto NewActor = GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, GetComponentTransform());
+	SpawnedActor = GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, GetComponentTransform());
 
-	if (!NewActor) {
+	if (!SpawnedActor) {
 		return;
 	}
 
 	// Since we have already applied a transformation in SpawnActorDefered we want to keep the current world position.
-	NewActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+	SpawnedActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
 
-	UGameplayStatics::FinishSpawningActor(NewActor, GetComponentTransform());
+	UGameplayStatics::FinishSpawningActor(SpawnedActor, GetComponentTransform());
 }
 
 
@@ -40,5 +40,10 @@ void USpawnPoint::TickComponent(float DeltaTime, ELevelTick TickType, FActorComp
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+AActor* USpawnPoint::GetSpawnedActor() const
+{
+	return SpawnedActor;
 }
 
