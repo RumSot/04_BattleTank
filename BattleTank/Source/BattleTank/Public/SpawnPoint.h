@@ -7,8 +7,6 @@
 #include "SpawnPoint.generated.h"
 
 
-class AActor;
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BATTLETANK_API USpawnPoint : public USceneComponent
 {
@@ -30,6 +28,4 @@ private:
 	// Configuration
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	TSubclassOf<AActor> SpawnClass;		// Alternative: https://docs.unrealengine.com/en-US/ProgrammingAndScripting/ProgrammingWithCPP/UnrealArchitecture/TSubclassOf/index.html
-
-		
 };

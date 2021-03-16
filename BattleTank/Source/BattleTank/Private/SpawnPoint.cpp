@@ -2,8 +2,8 @@
 
 
 #include "SpawnPoint.h"
-#include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
+
 
 // Sets default values for this component's properties
 USpawnPoint::USpawnPoint()
@@ -21,18 +21,16 @@ void USpawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-
-	auto TransformToComponentLocation = GetComponentTransform();
-	auto NewActor = GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, TransformToComponentLocation);
+	auto NewActor = GetWorld()->SpawnActorDeferred<AActor>(SpawnClass, GetComponentTransform());
 
 	if (!NewActor) {
 		return;
 	}
-	auto TransformRules = FAttachmentTransformRules(EAttachmentRule::KeepWorld, false);	// Since we have already applied a transformation in SpawnActorDefered we want to keep the current world position.
-	NewActor->AttachToComponent(this, TransformRules);
 
-	UGameplayStatics::FinishSpawningActor(NewActor, TransformToComponentLocation);
+	// Since we have already applied a transformation in SpawnActorDefered we want to keep the current world position.
+	NewActor->AttachToComponent(this, FAttachmentTransformRules::KeepWorldTransform);
+
+	UGameplayStatics::FinishSpawningActor(NewActor, GetComponentTransform());
 }
 
 
