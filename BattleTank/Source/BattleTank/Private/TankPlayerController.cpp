@@ -13,6 +13,7 @@ void ATankPlayerController::BeginPlay(void)
 	Super::BeginPlay();
 
 	// Get the controlled tanks aiming component
+	if (!GetPawn()) return;
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 
 	// The ensure will print out an error to the log file if the argument is a nullptr
