@@ -1,0 +1,4 @@
+Problem:	Opening a blueprint gives a completely blank window.
+
+Solution: 	Detatch blueprint window from the main window.
+	View -> class defaults -> 'Open Full Blueprint Editor'.
